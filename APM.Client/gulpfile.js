@@ -7,6 +7,7 @@ var gulpIf = require('gulp-if');
 var minifyCSS = require('gulp-minify-css');
 var templateCache = require('gulp-angular-templatecache');
 var inject = require('gulp-inject');
+var ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('sass', function () {
     return gulp.src('Content/scss/**/*.scss')
@@ -40,6 +41,7 @@ gulp.task('useref', ['cachetemplates'], function () {
             starttag: '<!-- inject:templates:js -->'
         }))
         .pipe(assets)
+        //.pipe(gulpIf('*.js', ngAnnotate()))
         // Minifies only if it's a CSS file
         .pipe(gulpIf('*.css', minifyCSS()))
         // Uglifies only if it's a Javascript file
